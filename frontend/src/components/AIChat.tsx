@@ -61,7 +61,7 @@ export default function AIChat() {
 
   return (
     <div className="w-full">
-      <div className="bg-white rounded-2xl border border-blue-100 shadow-sm overflow-hidden transition-all duration-300">
+      <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden transition-all duration-300">
         <AnimatePresence initial={false}>
           {open && messages.length > 0 && (
             <motion.div
@@ -84,13 +84,13 @@ export default function AIChat() {
                     <div
                       className={`max-w-[85%] px-3.5 py-2 rounded-2xl text-sm leading-relaxed ${
                         msg.role === "user"
-                          ? "bg-blue-600 text-white rounded-br-md"
-                          : "bg-blue-50 text-slate-700 rounded-bl-md"
+                          ? "bg-gold text-white rounded-br-md"
+                          : "bg-white/90 text-gray-700 rounded-bl-md"
                       }`}
                     >
                       {msg.role === "assistant" && i === 0 && messages.length === 1 ? (
                         <span>
-                          <Sparkles className="w-3.5 h-3.5 inline-block mr-1 text-amber -mt-0.5" />
+                          <Sparkles className="w-3.5 h-3.5 inline-block mr-1 text-gold -mt-0.5" />
                           {msg.content}
                         </span>
                       ) : (
@@ -105,11 +105,11 @@ export default function AIChat() {
                     animate={{ opacity: 1 }}
                     className="flex justify-start"
                   >
-                    <div className="bg-blue-50 px-4 py-3 rounded-2xl rounded-bl-md">
+                    <div className="bg-white/90 px-4 py-3 rounded-2xl rounded-bl-md">
                       <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                        <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                       </div>
                     </div>
                   </motion.div>
@@ -120,7 +120,7 @@ export default function AIChat() {
                     animate={{ opacity: 1 }}
                     className="flex justify-center"
                   >
-                    <span className="text-red-500 text-xs">{error}</span>
+                    <span className="text-red-300 text-xs">{error}</span>
                   </motion.div>
                 )}
                 <div ref={messagesEndRef} />
@@ -131,7 +131,7 @@ export default function AIChat() {
 
         <form onSubmit={handleSubmit} className="flex items-center gap-2 p-2">
           <div className="flex-1 relative">
-            <Bot className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Bot className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-200" />
             <input
               ref={inputRef}
               type="text"
@@ -140,13 +140,13 @@ export default function AIChat() {
               onFocus={handleOpen}
               placeholder="Ask QServ AI..."
               disabled={loading}
-              className="w-full bg-transparent pl-10 pr-4 py-2.5 text-slate-700 text-sm placeholder-slate-400 focus:outline-none disabled:opacity-50"
+              className="w-full bg-transparent pl-10 pr-4 py-2.5 text-white text-sm placeholder-gray-300 focus:outline-none disabled:opacity-50"
             />
           </div>
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="p-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+            className="p-2.5 bg-gold text-white rounded-xl hover:bg-gold-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
             aria-label="Send message"
           >
             <Send className="w-4 h-4" />

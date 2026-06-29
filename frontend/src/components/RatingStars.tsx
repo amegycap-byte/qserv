@@ -39,8 +39,8 @@ export default function RatingStars({ rating, reviewsCount, size = "sm", showCou
             {type === "full" && (
               <path
                 d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.6l5.34-.78L10 1z"
-                fill="#2563EB"
-                stroke="#2563EB"
+                fill="#D4A843"
+                stroke="#D4A843"
                 strokeWidth="0.5"
               />
             )}
@@ -48,8 +48,8 @@ export default function RatingStars({ rating, reviewsCount, size = "sm", showCou
               <>
                 <path
                   d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.6l5.34-.78L10 1z"
-                  fill="#2563EB"
-                  stroke="#2563EB"
+                  fill="#D4A843"
+                  stroke="#D4A843"
                   strokeWidth="0.5"
                 />
                 <rect x="10" y="1" width="10" height="18" fill="white" />
@@ -59,19 +59,19 @@ export default function RatingStars({ rating, reviewsCount, size = "sm", showCou
               <path
                 d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.27l-4.77 2.51.91-5.32L2.27 6.6l5.34-.78L10 1z"
                 fill="none"
-                stroke="#2563EB"
+                stroke="#D4A843"
                 strokeWidth="1"
-                opacity="0.25"
+                opacity="0.3"
               />
             )}
           </svg>
         ))}
       </div>
-      <span className={cn("font-semibold text-blue-600", { "text-xs": size === "sm", "text-sm": size === "md", "text-base": size === "lg" })}>
+      <span className={cn("font-semibold text-gold", { "text-xs": size === "sm", "text-sm": size === "md", "text-base": size === "lg" })}>
         {rating.toFixed(1)}
       </span>
       {showCount && reviewsCount !== undefined && (
-        <span className={cn("text-slate-400", { "text-xs": size === "sm", "text-sm": size === "md" })}>
+        <span className={cn("text-gray-400", { "text-xs": size === "sm", "text-sm": size === "md" })}>
           ({reviewsCount.toLocaleString()})
         </span>
       )}

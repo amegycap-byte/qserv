@@ -14,12 +14,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group",
+          "inline-flex items-center justify-center font-semibold transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group",
           {
-            "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/25 active:scale-[0.97]": variant === "primary",
-            "bg-slate-900 text-white hover:bg-slate-700 active:scale-[0.97]": variant === "secondary",
-            "border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-blue-600 hover:text-white active:scale-[0.97]": variant === "outline",
-            "text-blue-600 hover:bg-blue-50": variant === "ghost",
+            "bg-gradient-to-r from-gold to-gold-600 text-white hover:shadow-lg hover:shadow-gold/30 active:scale-[0.97]": variant === "primary",
+            "bg-primary text-white hover:bg-primary-light hover:shadow-lg active:scale-[0.97] border border-gold/20": variant === "secondary",
+            "border-2 border-gold text-gold bg-gold/10 hover:bg-gold hover:text-white hover:shadow-lg hover:shadow-gold/30 active:scale-[0.97]": variant === "outline",
+            "text-gold hover:bg-gold/10": variant === "ghost",
           },
           {
             "px-5 py-2 text-sm rounded-xl": size === "sm",
@@ -30,6 +30,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         {...props}
       >
+        {variant === "primary" && (
+          <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        )}
         <span className="relative z-10 flex items-center gap-2">{children}</span>
       </button>
     );

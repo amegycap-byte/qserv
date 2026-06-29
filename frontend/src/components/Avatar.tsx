@@ -3,12 +3,12 @@
 import { cn } from "@/lib/utils";
 
 const avatarColors = [
-  "bg-blue-600 text-white",
-  "bg-blue-500 text-white",
-  "bg-blue-700 text-white",
-  "bg-slate-700 text-white",
-  "bg-slate-600 text-white",
-  "bg-blue-400 text-white",
+  "bg-gold text-white",
+  "bg-sand-500 text-white",
+  "bg-sand-600 text-white",
+  "bg-sand-700 text-white",
+  "bg-primary text-white",
+  "bg-gold-600 text-white",
 ];
 
 interface AvatarProps {
