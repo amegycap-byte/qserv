@@ -12,12 +12,41 @@ import RatingStars from "@/components/RatingStars";
 import TrustedBadge from "@/components/TrustedBadge";
 import Button from "@/components/Button";
 
+const fallbackCategories: Category[] = [
+  { id: 1, name: "Salon & Grooming", slug: "salon-grooming", description: "", icon: "Scissors", image_url: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80" },
+  { id: 2, name: "Cleaning", slug: "cleaning", description: "", icon: "SprayCan", image_url: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80" },
+  { id: 3, name: "Plumbing", slug: "plumbing", description: "", icon: "Wrench", image_url: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=600&q=80" },
+  { id: 4, name: "Electrical", slug: "electrical", description: "", icon: "Zap", image_url: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=600&q=80" },
+  { id: 5, name: "Painting", slug: "painting", description: "", icon: "Paintbrush", image_url: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=600&q=80" },
+  { id: 6, name: "Pest Control", slug: "pest-control", description: "", icon: "Bug", image_url: "https://images.unsplash.com/photo-1540366244940-9dce0a570312?w=600&q=80" },
+  { id: 7, name: "Maid Service", slug: "maid-service", description: "", icon: "SprayCan", image_url: "https://images.unsplash.com/photo-1575467678930-c7acd65d6470?w=600&q=80" },
+  { id: 8, name: "Chefs", slug: "chefs", description: "", icon: "ChefHat", image_url: "https://images.unsplash.com/photo-1681270543584-8e541a1bb056?w=600&q=80" },
+  { id: 9, name: "AC & Cooling", slug: "ac-cooling", description: "", icon: "Snowflake", image_url: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80" },
+  { id: 10, name: "Handyman", slug: "handyman", description: "", icon: "Hammer", image_url: "https://images.unsplash.com/photo-1574359411659-15573a27fd0c?w=600&q=80" },
+  { id: 11, name: "Moving & Packing", slug: "moving-packing", description: "", icon: "Truck", image_url: "https://images.unsplash.com/photo-1600518464441-9154a4dea21b?w=600&q=80" },
+];
+
+const fallbackProviders: Provider[] = [
+  { id: 1, name: "Dania Maids", slug: "dania-maids", category: "Cleaning", description: null, rating: 4.9, reviews_count: 1381, price_range: "QAR 35 - 180/hr", phone: null, email: null, image_url: null, skills: ["Home Cleaning", "Deep Cleaning", "Eco-Friendly"] },
+  { id: 2, name: "Almas Movers International", slug: "almas-movers", category: "Moving & Packing", description: null, rating: 4.9, reviews_count: 567, price_range: "QAR 600 - 4000", phone: null, email: null, image_url: null, skills: ["Home Relocation", "Office Moving", "Packing Service"] },
+  { id: 3, name: "Layla Kitchen", slug: "layla-kitchen", category: "Chefs", description: null, rating: 4.9, reviews_count: 178, price_range: "QAR 200 - 800", phone: null, email: null, image_url: null, skills: ["Private Dining", "Corporate Catering", "Daily Meal Plan"] },
+  { id: 4, name: "Enddi Beauty Salon & Makeup", slug: "enddi-beauty-salon", category: "Salon & Grooming", description: null, rating: 4.9, reviews_count: 234, price_range: "QAR 80 - 500", phone: null, email: null, image_url: null, skills: ["Hair Braiding", "Bridal Makeup", "Nail Art"] },
+  { id: 5, name: "Handyman Doha", slug: "handyman-doha-main", category: "Handyman", description: null, rating: 4.8, reviews_count: 376, price_range: "QAR 100 - 500", phone: null, email: null, image_url: null, skills: ["Furniture Assembly", "TV Mounting", "General Repairs"] },
+  { id: 6, name: "Home Service Qatar", slug: "home-service-qatar", category: "Plumbing", description: null, rating: 4.8, reviews_count: 312, price_range: "QAR 150 - 800", phone: null, email: null, image_url: null, skills: ["Leak Detection", "Pipe Repair", "Drain Cleaning"] },
+  { id: 7, name: "Homefix Qatar", slug: "homefix-qatar-ac", category: "AC & Cooling", description: null, rating: 4.8, reviews_count: 245, price_range: "QAR 180 - 1500", phone: null, email: null, image_url: null, skills: ["AC Installation", "AC Repair", "Gas Refill"] },
+  { id: 8, name: "Qatar Maid Service", slug: "qatar-maid-service", category: "Maid Service", description: null, rating: 4.7, reviews_count: 423, price_range: "QAR 80 - 250", phone: null, email: null, image_url: null, skills: ["Residential Cleaning", "Deep Cleaning", "Office Cleaning"] },
+  { id: 9, name: "Roots Qatar", slug: "roots-qatar", category: "Salon & Grooming", description: null, rating: 4.8, reviews_count: 312, price_range: "QAR 150 - 600", phone: null, email: null, image_url: null, skills: ["Blonde Specialist", "Hair Coloring", "Haircut & Styling"] },
+  { id: 10, name: "Al Allam Cleaning", slug: "al-allam-pest-control", category: "Pest Control", description: null, rating: 4.6, reviews_count: 178, price_range: "QAR 250 - 800", phone: null, email: null, image_url: null, skills: ["Cockroach Control", "Termite Treatment", "Rodent Control"] },
+  { id: 11, name: "Homefix Qatar", slug: "homefix-qatar-painting", category: "Painting", description: null, rating: 4.7, reviews_count: 134, price_range: "QAR 200 - 1200", phone: null, email: null, image_url: null, skills: ["Interior Painting", "Exterior Painting", "Color Consultation"] },
+  { id: 12, name: "Handyman Doha", slug: "handyman-doha", category: "Electrical", description: null, rating: 4.8, reviews_count: 276, price_range: "QAR 100 - 500", phone: null, email: null, image_url: null, skills: ["Lighting Install", "Switch Repair", "Wiring Work"] },
+];
+
 export default function ServicesContent() {
   const searchParams = useSearchParams();
   const categoryFilter = searchParams.get("category");
 
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [providers, setProviders] = useState<Provider[]>([]);
+  const [categories, setCategories] = useState<Category[]>(fallbackCategories);
+  const [providers, setProviders] = useState<Provider[]>(fallbackProviders);
   const [selectedCategory, setSelectedCategory] = useState(categoryFilter || "");
   const [searchQuery, setSearchQuery] = useState("");
 
