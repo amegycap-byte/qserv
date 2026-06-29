@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  --sand-50: #FAF6F1;
+  --sand-100: #F5EDE4;
+  --sand-200: #EAD9C7;
+  --sand-300: #DCC0A5;
+  --sand-400: #CDA783;
+  --sand-500: #C08E64;
+  --sand-600: #B07950;
+  --sand-700: #926544;
+  --gold: #D4A843;
+  --gold-600: #C49A35;
+  --cream: #FDF8F3;
+  --primary: #1C1816;
+  --primary-light: #2D2824;
+}
+
+@theme inline {
+  --color-sand-50: var(--sand-50);
+  --color-sand-100: var(--sand-100);
+  --color-sand-200: var(--sand-200);
+  --color-sand-300: var(--sand-300);
+  --color-sand-400: var(--sand-400);
+  --color-sand-500: var(--sand-500);
+  --color-sand-600: var(--sand-600);
+  --color-sand-700: var(--sand-700);
+  --color-gold: var(--gold);
+  --color-gold-600: var(--gold-600);
+  --color-cream: var(--cream);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --font-sans: var(--font-open-sans);
+  --animate-gradient: gradient-shift 8s ease infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse-slow 4s ease-in-out infinite;
+}
+
+body {
+  background: var(--cream);
+  color: #4A4A4A;
+  font-family: var(--font-open-sans), sans-serif;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #D4A843 0%, #E0B84F 50%, #D4A843 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 168, 67, 0.12);
+}
+
+.glass-dark {
+  background: rgba(28, 24, 22, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 168, 67, 0.2);
+}
+
+.animate-fade-in-up { animation: fade-in-up 0.6s ease-out; }
+.animate-scale-in { animation: scale-in 0.4s ease-out; }
