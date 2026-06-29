@@ -25,7 +25,7 @@ export async function fetchProvider(slug: string): Promise<Provider | null> {
 
 export async function sendChatMessage(messages: { role: string; content: string }[]): Promise<string> {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 30000);
+  const timer = setTimeout(() => controller.abort(), 90000);
   try {
     const res = await fetch(`${API_BASE}/api/chat`, {
       method: "POST",
