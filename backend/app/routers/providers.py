@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 from typing import Optional
 from app.database import get_db
-from app.models import Provider, ProviderApplication
+from app.models import Category, Provider, ProviderApplication
 from app.schemas import ProviderOut, ProviderApplicationIn, ProviderApplicationOut
 
 router = APIRouter(prefix="/api/providers", tags=["providers"])
@@ -17,7 +17,9 @@ def list_providers(
 ):
     query = db.query(Provider)
     if category:
-        query = query.filter(Provider.category == category)
+        cat = db.query(Category).filter(Category.slug == category).first()
+        if cat:
+            query = query.filter(Provider.category == cat.name)
     if min_rating:
         query = query.filter(Provider.rating >= min_rating)
     providers = query.all()
