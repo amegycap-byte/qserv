@@ -20,13 +20,13 @@ const stats = [
 ];
 
 const fallbackProviders: Provider[] = [
-  { id: 1, name: "Sparkle Clean Co.", slug: "sparkle-clean-co", category: "Cleaning", description: null, rating: 4.9, reviews_count: 342, price_range: "QAR 80 - 200", phone: null, email: null, image_url: null, skills: ["Home Cleaning", "Deep Cleaning", "Office Cleaning"] },
-  { id: 2, name: "AquaFix Pro", slug: "aquafix-pro", category: "Plumbing", description: null, rating: 4.8, reviews_count: 289, price_range: "QAR 120 - 400", phone: null, email: null, image_url: null, skills: ["Pipe Repair", "Drain Cleaning", "Fixture Installation"] },
-  { id: 3, name: "VoltCare Electrical", slug: "voltcare-electrical", category: "Electrical", description: null, rating: 4.8, reviews_count: 245, price_range: "QAR 100 - 350", phone: null, email: null, image_url: null, skills: ["Wiring", "Lighting", "Panel Upgrade"] },
-  { id: 4, name: "ColorCraft Studio", slug: "colorcraft-studio", category: "Painting", description: null, rating: 4.7, reviews_count: 198, price_range: "QAR 200 - 800", phone: null, email: null, image_url: null, skills: ["Interior Painting", "Exterior Painting", "Wallpaper"] },
-  { id: 5, name: "ArcticFlow Cooling", slug: "arcticflow-cooling", category: "AC & Cooling", description: null, rating: 4.9, reviews_count: 176, price_range: "QAR 150 - 500", phone: null, email: null, image_url: null, skills: ["AC Repair", "AC Installation", "Duct Cleaning"] },
-  { id: 6, name: "Gourmet Home Chefs", slug: "gourmet-home-chefs", category: "Chefs", description: null, rating: 4.9, reviews_count: 54, price_range: "QAR 200 - 600", phone: null, email: null, image_url: null, skills: ["International Cuisine", "Meal Prep", "Private Dining"] },
-  { id: 7, name: "Crystal Clean Maids", slug: "crystal-clean-maids", category: "Maid Service", description: null, rating: 4.8, reviews_count: 76, price_range: "QAR 80 - 220", phone: null, email: null, image_url: null, skills: ["Full House Cleaning", "Dusting", "Window Cleaning"] },
+  { id: 1, name: "Dania Maids", slug: "dania-maids", category: "Cleaning", description: null, rating: 4.9, reviews_count: 1381, price_range: "QAR 35 - 180/hr", phone: null, email: null, image_url: null, skills: ["Home Cleaning", "Deep Cleaning", "Eco-Friendly"] },
+  { id: 2, name: "Almas Movers International", slug: "almas-movers", category: "Moving & Packing", description: null, rating: 4.9, reviews_count: 567, price_range: "QAR 600 - 4000", phone: null, email: null, image_url: null, skills: ["Home Relocation", "Office Moving", "Packing Service"] },
+  { id: 3, name: "Layla Kitchen", slug: "layla-kitchen", category: "Chefs", description: null, rating: 4.9, reviews_count: 178, price_range: "QAR 200 - 800", phone: null, email: null, image_url: null, skills: ["Private Dining", "Corporate Catering", "Daily Meal Plan"] },
+  { id: 4, name: "Enddi Beauty Salon & Makeup", slug: "enddi-beauty-salon", category: "Salon & Grooming", description: null, rating: 4.9, reviews_count: 234, price_range: "QAR 80 - 500", phone: null, email: null, image_url: null, skills: ["Hair Braiding", "Bridal Makeup", "Nail Art"] },
+  { id: 5, name: "Home Service Qatar", slug: "home-service-qatar", category: "Plumbing", description: null, rating: 4.8, reviews_count: 312, price_range: "QAR 150 - 800", phone: null, email: null, image_url: null, skills: ["Leak Detection", "Pipe Repair", "Drain Cleaning"] },
+  { id: 6, name: "Homefix Qatar", slug: "homefix-qatar-ac", category: "AC & Cooling", description: null, rating: 4.8, reviews_count: 245, price_range: "QAR 180 - 1500", phone: null, email: null, image_url: null, skills: ["AC Installation", "AC Repair", "Gas Refill"] },
+  { id: 7, name: "Dania Maids", slug: "dania-maids-service", category: "Maid Service", description: null, rating: 4.9, reviews_count: 1381, price_range: "QAR 35 - 150/hr", phone: null, email: null, image_url: null, skills: ["House Cleaning", "Deep Cleaning", "Regular Cleaning"] },
 ].sort((a, b) => b.rating - a.rating).slice(0, 4);
 
 const fallbackCategories: Category[] = [
