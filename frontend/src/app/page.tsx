@@ -10,6 +10,7 @@ import Avatar from "@/components/Avatar";
 import RatingStars from "@/components/RatingStars";
 import { fetchCategories, fetchProviders } from "@/lib/api";
 import AIChat from "@/components/AIChat";
+import HowItWorks from "@/components/HowItWorks";
 import type { Category, Provider } from "@/lib/utils";
 
 const stats = [
@@ -157,6 +158,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* How It Works */}
+      <HowItWorks />
 
       {/* Why QServ */}
       <WhyQServ />
