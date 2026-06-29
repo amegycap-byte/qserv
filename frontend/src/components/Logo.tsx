@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
@@ -13,8 +15,8 @@ export default function Logo({ variant = "dark", size = "md", showWordmark = tru
         className={cn(
           "flex items-center justify-center rounded-xl font-extrabold tracking-tight shrink-0",
           variant === "dark"
-            ? "bg-gradient-to-br from-gold to-gold-600 text-white"
-            : "bg-white/10 text-gold border border-gold/30",
+            ? "bg-blue-600 text-white"
+            : "bg-white/10 text-blue border border-blue/30",
           {
             "w-8 h-8 text-sm": size === "sm",
             "w-10 h-10 text-lg": size === "md",
@@ -28,7 +30,7 @@ export default function Logo({ variant = "dark", size = "md", showWordmark = tru
         <span
           className={cn(
             "font-bold tracking-tight",
-            variant === "dark" ? "text-primary" : "text-white",
+            variant === "dark" ? "text-slate-900" : "text-white",
             {
               "text-sm": size === "sm",
               "text-xl": size === "md",
@@ -36,7 +38,7 @@ export default function Logo({ variant = "dark", size = "md", showWordmark = tru
             }
           )}
         >
-          Q<span className="text-gold">Serv</span>
+          Q<span className="text-blue-600">Serv</span>
         </span>
       )}
     </div>

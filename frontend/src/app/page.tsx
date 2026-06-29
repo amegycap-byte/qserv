@@ -1,23 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Star, ArrowRight, Sparkles, UserCheck, Briefcase, ThumbsUp } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 import Button from "@/components/Button";
-import WhyQServ from "@/components/WhyQServ";
 import Avatar from "@/components/Avatar";
 import RatingStars from "@/components/RatingStars";
 import { fetchCategories, fetchProviders } from "@/lib/api";
 import AIChat from "@/components/AIChat";
 import type { Category, Provider } from "@/lib/utils";
-
-const stats = [
-  { icon: Briefcase, value: "500+", label: "Services Completed" },
-  { icon: UserCheck, value: "200+", label: "Verified Professionals" },
-  { icon: Star, value: "4.9", label: "Average Rating" },
-  { icon: ThumbsUp, value: "98%", label: "Satisfaction Rate" },
-];
 
 const fallbackProviders: Provider[] = [
   { id: 1, name: "Sparkle Clean Co.", slug: "sparkle-clean-co", category: "Cleaning", description: null, rating: 4.9, reviews_count: 342, price_range: "QAR 80 - 200", phone: null, email: null, image_url: null, skills: ["Home Cleaning", "Deep Cleaning", "Office Cleaning"] },
@@ -57,142 +49,96 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-[500px] lg:min-h-[70vh] flex items-center overflow-hidden bg-primary pt-14">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-light to-sand-700" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gold/15 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-sand-500/10 via-transparent to-transparent" />
+      {/* Hero — full-bleed image backdrop */}
+      <section className="relative h-svh min-h-[600px] flex items-end overflow-hidden">
+        <div className="absolute inset-0 bg-slate-900">
+          <img
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover opacity-70"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
+        </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24">
-          <div className="max-w-3xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-gold/30 px-4 py-1.5 rounded-full mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-                <span className="text-gold text-[11px] font-semibold tracking-[0.15em] uppercase">
-                  Qatar&apos;s Trusted Home Services Marketplace
-                </span>
-              </div>
-            </motion.div>
-
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-4">
-              Quality Home Services,<br />
-              <span className="text-gradient">On Demand</span>
-            </motion.h1>
-
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-300 mb-8 max-w-xl leading-relaxed">
-              Experienced, hand-picked professionals to serve you at your doorstep. Transparent pricing, quality guaranteed.
-            </motion.p>
-
-            {/* Trust badges */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex items-center gap-4 text-xs mb-10">
-              <div className="flex items-center gap-1 text-gray-400">
-                <Star className="w-3.5 h-3.5 fill-gold text-gold" />
-                <Star className="w-3.5 h-3.5 fill-gold text-gold" />
-                <Star className="w-3.5 h-3.5 fill-gold text-gold" />
-                <Star className="w-3.5 h-3.5 fill-gold text-gold" />
-                <Star className="w-3.5 h-3.5 fill-gold text-gold" />
-                <span className="ml-1 text-gold font-semibold">4.9</span>
-                <span className="text-gray-500">(500+ reviews)</span>
-              </div>
-              <span className="text-gray-600">|</span>
-              <span className="text-gray-400">200+ Pros</span>
-              <span className="text-gray-600">|</span>
-              <span className="text-gray-400">Quality Assured</span>
-            </motion.div>
-          </div>
-
-          {/* Category Images (full width) */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}
-            className="mb-6">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {categories.map((cat) => (
-                <Link key={cat.id} href={`/services?category=${cat.slug}`}>
-                  <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-0.5">
-                    {cat.image_url && (
-                      <img src={cat.image_url} alt={cat.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="text-white font-bold text-base group-hover:translate-x-1 transition-transform duration-300">{cat.name}</h3>
-                    </div>
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-8 h-8 rounded-full bg-gold/90 flex items-center justify-center">
-                        <ArrowRight className="w-4 h-4 text-white" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 sm:pb-20">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            <p className="text-slate-600 text-sm font-medium mb-1 tracking-wide">QServ — Home services, simplified.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-6 max-w-xl">
+              Find trusted professionals for your home
+            </h1>
           </motion.div>
-
-          <div className="max-w-3xl">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="max-w-lg">
             <AIChat />
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1C1816 0%, #2D2824 50%, #926544 100%)" }}>
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(212,168,67,0.08)_1px,transparent_1px)] bg-[length:32px_32px]" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, i) => (
-              <motion.div key={stat.label} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.15 }} className="text-center group">
-                <div className="relative inline-flex mb-4">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center relative z-10 group-hover:scale-110 transition-transform duration-500 border border-gold/20">
-                    <stat.icon className="w-7 h-7 text-gold" />
+      {/* Categories — horizontal circular image scroll */}
+      <section className="pt-4 pb-8 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Services</span>
+            <div className="flex-1 h-px bg-slate-100" />
+          </div>
+          <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden -mx-4 px-4">
+            {categories.map((cat) => (
+              <Link key={cat.id} href={`/services?category=${cat.slug}`} className="snap-start shrink-0 group">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden ring-2 ring-transparent group-hover:ring-blue-500 transition-all duration-300">
+                    {cat.image_url ? (
+                      <img src={cat.image_url} alt={cat.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    ) : (
+                      <div className="w-full h-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-lg">{cat.name[0]}</div>
+                    )}
                   </div>
+                  <span className="text-xs font-semibold text-slate-700 group-hover:text-blue-600 transition-colors text-center leading-tight">{cat.name}</span>
                 </div>
-                <p className="text-3xl sm:text-4xl font-extrabold text-white mb-1">{stat.value}</p>
-                <p className="text-gray-300 text-sm font-medium tracking-wide">{stat.label}</p>
-              </motion.div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why QServ */}
-      <WhyQServ />
+      {/* Stats ticker */}
+      <div className="border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <p className="text-sm text-slate-500 text-center sm:text-left tracking-wide">
+            <span className="font-semibold text-slate-800">500+</span> services completed
+            <span className="mx-2 text-slate-300">·</span>
+            <span className="font-semibold text-slate-800">200+</span> pros
+            <span className="mx-2 text-slate-300">·</span>
+            <span className="font-semibold text-slate-800">4.9</span> avg rating
+            <span className="mx-2 text-slate-300">·</span>
+            <span className="font-semibold text-slate-800">98%</span> satisfaction
+          </p>
+        </div>
+      </div>
 
-      {/* Top Rated Professionals */}
+      {/* Professionals — horizontal profile scroll */}
       {providers.length > 0 && (
-        <section className="py-20 relative overflow-hidden bg-cream">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-gold/10 border border-gold/20 px-4 py-2 rounded-full mb-4">
-                <Sparkles className="w-4 h-4 text-gold" />
-                <span className="text-gold text-xs font-semibold tracking-wider uppercase">Top Rated</span>
+        <section className="py-12 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Top Rated</span>
+                <div className="w-8 h-px bg-slate-200" />
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-primary">Our Top <span className="text-gradient">Professionals</span></h2>
-              <p className="text-gray-500 mt-3 max-w-2xl mx-auto">Hand-picked experts with the highest ratings</p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Link href="/services" className="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors">
+                View all <ArrowRight className="w-3 h-3 inline ml-0.5" />
+              </Link>
+            </div>
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden -mx-4 px-4">
               {providers.map((pro, i) => (
-                <motion.div key={pro.id} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}>
+                <motion.div key={pro.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.08 }} className="snap-start shrink-0 w-[260px]">
                   <Link href={`/services/${pro.slug}`} className="group block">
-                    <div className="bg-white rounded-2xl p-6 border border-sand-200 hover:border-gold/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
-                      {pro.rating >= 4.5 && (
-                        <div className="absolute top-3 left-0">
-                          <div className="bg-gradient-to-r from-gold to-gold-600 text-white text-[10px] font-bold px-3 py-1 rounded-r-full flex items-center gap-1 shadow-lg shadow-gold/30">
-                            <Star className="w-2.5 h-2.5" fill="white" /> Trusted
-                          </div>
-                        </div>
-                      )}
-                      <div className="flex flex-col items-center text-center pt-2">
-                        <Avatar name={pro.name} size="lg" className="mb-3" />
-                        <h3 className="font-bold text-primary text-sm group-hover:text-gold transition-colors">{pro.name}</h3>
-                        <p className="text-xs text-gray-400 mb-2 capitalize">{pro.category}</p>
+                    <div className="bg-white rounded-2xl p-5 border border-slate-100 hover:border-blue-200 hover:shadow-md transition-all duration-300">
+                      <div className="flex flex-col items-center text-center">
+                        <Avatar name={pro.name} size="xl" className="mb-3" />
+                        <h3 className="font-bold text-slate-900 text-sm group-hover:text-blue-600 transition-colors">{pro.name}</h3>
+                        <p className="text-xs text-slate-400 capitalize mb-2">{pro.category}</p>
                         <RatingStars rating={pro.rating} reviewsCount={pro.reviews_count} size="sm" />
                         {pro.price_range && (
-                          <div className="mt-3 bg-gold/10 text-gold-600 text-xs font-semibold px-3 py-1 rounded-full">{pro.price_range}</div>
+                          <div className="mt-3 text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{pro.price_range}</div>
                         )}
                       </div>
                     </div>
@@ -200,43 +146,22 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
-
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mt-10">
-              <Link href="/services">
-                <Button variant="outline" size="lg">View All Professionals <ArrowRight className="w-4 h-4 ml-2" /></Button>
-              </Link>
-            </motion.div>
           </div>
         </section>
       )}
 
-      {/* CTA */}
-      <section className="py-20 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1C1816 0%, #2D2824 50%, #926544 100%)" }}>
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(212,168,67,0.08)_1px,transparent_1px)] bg-[length:32px_32px]" />
-        <div className="absolute -top-40 -left-40 w-80 h-80 bg-gold/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -right-40 w-80 h-80 bg-gold/10 rounded-full blur-3xl" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <motion.div animate={{ rotate: [0, 10, 0, -10, 0] }} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="inline-flex p-4 rounded-3xl bg-gold/10 border border-gold/20 mb-8">
-              <Star className="w-10 h-10 text-gold" />
-            </motion.div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">Ready to Book Your Service?</h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">Join thousands of happy customers in Qatar. Book a trusted professional today.</p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/services">
-                <Button variant="primary" size="lg" className="shadow-2xl shadow-gold/20 bg-white text-primary hover:bg-cream">
-                  Get Started <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button variant="outline" size="lg">Contact Us</Button>
-              </Link>
+      {/* CTA band */}
+      <section className="border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900">Ready to get started?</h2>
+              <p className="text-slate-500 text-sm mt-1">Book a trusted professional in minutes.</p>
             </div>
-          </motion.div>
+            <Link href="/services">
+              <Button>Browse Services <ArrowRight className="w-4 h-4 ml-2" /></Button>
+            </Link>
+          </div>
         </div>
       </section>
     </>
