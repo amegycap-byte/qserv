@@ -5,8 +5,13 @@ from app.models import Category, Provider
 def seed_data():
     db = SessionLocal()
     try:
-        if db.query(Category).count() > 0:
+        if db.query(Provider).count() > 100:
+            print("Providers already seeded (100+), skipping.")
             return
+        print(f"Found {db.query(Provider).count()} providers. Reseeding...")
+        db.query(Provider).delete()
+        db.query(Category).delete()
+        db.commit()
 
         categories = [
             Category(
