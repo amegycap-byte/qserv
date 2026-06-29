@@ -24,16 +24,24 @@ export async function fetchProvider(slug: string): Promise<Provider | null> {
 }
 
 export async function sendChatMessage(messages: { role: string; content: string }[]): Promise<string> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 30000);
   try {
     const res = await fetch(`${API_BASE}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages }),
+      signal: controller.signal,
     });
+    clearTimeout(timer);
     if (!res.ok) throw new Error("Chat request failed");
     const data = await res.json();
     return data.reply;
-  } catch {
+  } catch (err) {
+    clearTimeout(timer);
+    if (err instanceof DOMException && err.name === "AbortError") {
+      throw new Error("Request timed out. Please try again.");
+    }
     throw new Error("Connection error. Please try again.");
   }
 }
